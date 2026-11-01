@@ -160,7 +160,7 @@ button {
 
     background:
         linear-gradient(90deg, #1c141044, transparent 65%),
-        url('images/bini-cover.jpg') center center / cover no-repeat;
+        url("bini-cover.jpg") center center / cover no-repeat;
 
     color: white;
 }

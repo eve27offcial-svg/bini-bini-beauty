@@ -66,12 +66,16 @@ services.forEach(group => {
 // GALLERY
 const gallery = document.getElementById("gallery-grid");
 
-for (let i = 1; i <= 20; i++) {
-    const img = document.createElement("img");
-    img.src = `images/salon-${i}.jpg`;
-    img.alt = `BINIBINI Beauty Lounge Gallery ${i}`;
-    img.loading = "lazy";
-    gallery.appendChild(img);
+if (gallery) {
+    for (let i = 1; i <= 20; i++) {
+        const img = document.createElement("img");
+
+        img.src = `salon-${i}.jpg`;
+        img.alt = `BINIBINI Beauty Lounge Gallery ${i}`;
+        img.loading = "lazy";
+
+        gallery.appendChild(img);
+    }
 }
 
 // SAMPLE REVIEWS - NOT REAL CUSTOMER TESTIMONIALS

@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book an Appointment | BINIBINI</title>
+    <link rel="stylesheet" href="booking.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="booking-header">
+    <a href="index.html" class="booking-brand">
+        <img src="images/bini-logo.png" alt="BINIBINI logo">
+        BINIBINI BEAUTY LOUNGE
+    </a>
+    <a href="index.html" class="back-link">← Back to Website</a>
+</header>
+
+<main class="booking-container">
+
+    <div class="booking-heading">
+        <p class="eyebrow">YOUR BEAUTY EXPERIENCE</p>
+        <h1>Book Your Appointment</h1>
+        <p>Select your preferred service, date and available time.</p>
+    </div>
+
+    <div class="booking-layout">
+
+        <section class="booking-card">
+            <h2>01. Select Your Date</h2>
+            <div class="calendar-header">
+                <button id="previous-month">❮</button>
+                <h3 id="month-year"></h3>
+                <button id="next-month">❯</button>
+            </div>
+
+            <div class="calendar-grid" id="calendar"></div>
+
+            <div class="calendar-legend">
+                <span>● Available</span>
+                <span>● Booked</span>
+                <span>● Selected</span>
+            </div>
+
+            <h3 class="time-heading">Available Time Slots</h3>
+            <div id="time-slots" class="time-slots">
+                <p>Select a date to view available slots.</p>
+            </div>
+        </section>
+
+        <section class="booking-card">
+            <h2>02. Booking Details</h2>
+
+            <form id="appointment-form">
+
+                <label>Customer Name</label>
+                <input id="customer-name" readonly>
+
+                <label>Email Address</label>
+                <input id="customer-email" readonly>
+
+                <label>Contact Number</label>
+                <input id="customer-contact" readonly>
+
+                <label>Select Service</label>
+                <select id="appointment-service" required>
+                    <option value="">Choose a service</option>
+                </select>
+
+                <label>Selected Date</label>
+                <input id="selected-date" readonly required>
+
+                <label>Selected Time</label>
+                <input id="selected-time" readonly required>
+
+                <div class="reservation-box">
+                    <h3>Reservation Fee</h3>
+                    <p>50% of your selected service price</p>
+                    <h2 id="reservation-price">₱0.00</h2>
+                </div>
+
+                <div class="policy-box">
+                    <h3>Booking Policy</h3>
+                    <p>• A 50% reservation fee is required.</p>
+                    <p>• No-show appointments forfeit the reservation fee.</p>
+                    <p>• Attended appointments have the reservation fee deducted from the final bill.</p>
+                </div>
+
+                <button class="booking-submit" type="submit">
+                    Continue to Payment
+                </button>
+            </form>
+        </section>
+
+    </div>
+
+</main>
+
+<!-- PAYMENT MODAL -->
+<div class="payment-modal" id="payment-modal">
+    <div class="payment-box">
+        <button class="close-payment" onclick="closePayment()">×</button>
+
+        <h2>Reservation Payment</h2>
+        <p id="payment-description"></p>
+
+        <label>Payment Method</label>
+        <select id="booking-payment-method">
+            <option value="qr">QR Payment (Demo)</option>
+            <option value="cash">Cash at the Salon</option>
+        </select>
+
+        <div id="booking-qr">
+            <p>SCAN THIS DEMO QR CODE</p>
+            <div class="demo-qr">
+                BINIBINI<br>
+                SAMPLE QR<br>
+                NOT PAYABLE
+            </div>
+            <p>This QR is for school demonstration only. It cannot accept actual payments.</p>
+        </div>
+
+        <label>Payment Reference Number</label>
+        <input id="booking-reference" placeholder="Enter demo reference number">
+
+        <button class="booking-submit" onclick="confirmAppointment()">
+            Confirm Appointment
+        </button>
+    </div>
+</div>
+
+<script src="booking.js"></script>
+</body>
+</html>

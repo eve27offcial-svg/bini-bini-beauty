@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BINIBINI BEAUTY LOUNGE</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <a href="#home" class="brand">
+        <img src="images/bini-logo.png" alt="BINIBINI Logo">
+        <span>BINIBINI</span>
+    </a>
+
+    <nav class="navbar" id="navbar">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#promotions">Promotions</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact Us</a>
+    </nav>
+
+    <div class="header-actions">
+        <button class="icon-button" onclick="toggleCart()" aria-label="Shopping basket">
+            🛍️ <span id="cart-count">0</span>
+        </button>
+
+        <div class="member-menu">
+            <button class="member-button" onclick="toggleMember()">Member ▾</button>
+            <div class="dropdown" id="member-dropdown">
+                <button id="login-option" onclick="openLogin()">Log In</button>
+                <button id="logout-option" onclick="logout()">Log Out</button>
+            </div>
+        </div>
+    </div>
+
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+</header>
+
+
+<!-- HERO SECTION -->
+<section class="hero" id="home">
+    <div class="hero-content">
+
+        <div class="hero-intro">
+            <p class="eyebrow">EYES • NAILS • FACE • SKIN</p>
+
+            <h1>
+                Welcome to<br>
+                <span>BINIBINI</span>
+            </h1>
+        </div>
+
+        <div class="hero-buttons">
+            <a href="#services" class="btn btn-outline">
+                View Services
+            </a>
+
+            <button class="btn btn-primary" onclick="goToBooking()">
+                Book Now
+            </button>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- SERVICES -->
+<section class="section" id="services">
+    <div class="section-heading">
+        <p class="eyebrow">OUR SERVICES</p>
+        <h2>Beauty and Self-Care</h2>
+        <p>Discover the beauty treatments we offer.</p>
+    </div>
+
+    <div id="services-container" class="service-grid"></div>
+
+    <div class="center">
+        <button class="btn btn-primary" onclick="goToBooking()">Book Now</button>
+    </div>
+</section>
+
+<!-- PROMOTIONS -->
+<section class="section soft-bg" id="promotions">
+    <div class="section-heading">
+        <p class="eyebrow">SPECIAL OFFERS</p>
+        <h2>Our Promotions</h2>
+        <p>Enjoy our featured beauty offers.</p>
+    </div>
+
+    <div class="promo-grid">
+        <img src="images/promo-1.jpg" alt="Promotion 1">
+        <img src="images/promo-2.jpg" alt="Promotion 2">
+        <img src="images/promo-3.jpg" alt="Promotion 3">
+        <img src="images/promo-4.jpg" alt="Promotion 4">
+    </div>
+
+    <div class="center">
+        <button class="btn btn-primary" onclick="goToBooking()">Book Now</button>
+    </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="section" id="products">
+    <div class="section-heading">
+        <p class="eyebrow">BEAUTY ESSENTIALS</p>
+        <h2>Featured Products</h2>
+        <p>Care for your skin with BINIBINI beauty essentials.</p>
+    </div>
+
+    <div class="product-grid">
+        <article class="product-card">
+            <img src="images/product-1.jpg" alt="BINIBINI Sunscreen">
+            <div class="product-info">
+                <h3>BINIBINI Sunscreen Protection Cream</h3>
+                <p>Essential for maintaining healthy skin by blocking harmful UV radiation, preventing sunburn, and lowering the risk of skin cancer.</p>
+                <h3 class="price">₱450.00</h3>
+                <button class="btn btn-primary" onclick="addToCart('p1')">Add to Basket</button>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <img src="images/product-2.jpg" alt="BINIBINI Revitalizing Set">
+            <div class="product-info">
+                <h3>Bini-Bini Beauty Revitalizing Set</h3>
+                <p>Benefits: Remove dead skin cells, brighten complexion, promote cell turnover, repair the skin barrier, remove dark spots, anti-aging care, enhance product absorption and minimize pores.</p>
+                <h3 class="price">₱350.00</h3>
+                <button class="btn btn-primary" onclick="addToCart('p2')">Add to Basket</button>
+            </div>
+        </article>
+    </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section soft-bg" id="gallery">
+    <div class="section-heading">
+        <p class="eyebrow">OUR SPACE</p>
+        <h2>Beauty Lounge Gallery</h2>
+        <p>A glimpse of our salon and beauty experience.</p>
+    </div>
+    <div class="gallery-grid" id="gallery-grid"></div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section" id="reviews">
+    <div class="section-heading">
+        <p class="eyebrow">CUSTOMER FEEDBACK</p>
+        <h2>What Our Clients Say</h2>
+    </div>
+    <div class="review-grid" id="reviews-container"></div>
+    
+</section>
+
+<!-- ABOUT -->
+<section class="section soft-bg" id="about">
+<div class="about-layout">
+    <div class="about-text">
+        <p class="eyebrow">OUR STORY</p>
+        <h2>About BINIBINI Beauty Lounge</h2>
+
+        <p>Established in 2024, BINIBINI Beauty Lounge was built by two sisters who share a passion for beauty, wellness and helping people feel confident.</p>
+
+        <p>With a nursing background and trained beauty technician skills, the sisters aim to provide a welcoming beauty space where clients can enjoy personal care and beauty services.</p>
+
+        <h3>Our Mission</h3>
+        <p>To provide welcoming beauty and personal care services that help clients feel confident and valued.</p>
+
+        <h3>Our Vision</h3>
+        <p>To become a trusted beauty lounge known for quality service, care and customer satisfaction.</p>
+    </div>
+</div>
+
+    <div class="values-grid">
+        <article><h3>Our Core Values</h3><p>Care, professionalism, cleanliness, confidence, respect and continuous improvement.</p></article>
+        <article><h3>Our Target Market</h3><p>Individuals who value beauty, grooming, skincare and personal wellness.</p></article>
+        <article><h3>Established</h3><p>2024</p></article>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+    <div class="section-heading">
+        <p class="eyebrow">GET IN TOUCH</p>
+        <h2>Contact BINIBINI</h2>
+        <p>We would love to hear from you!</p>
+    </div>
+
+    <div class="contact-grid">
+        <article class="contact-card">
+            <span>☎</span>
+            <h3>Phone</h3>
+            <a href="tel:09626390230">0962 639 0230</a>
+            <p>Mobile</p>
+        </article>
+
+        <article class="contact-card">
+            <span>✉</span>
+            <h3>Email</h3>
+            <a href="mailto:owenjay1003@gmail.com">owenjay1003@gmail.com</a>
+            <p>Email address</p>
+        </article>
+
+        <article class="contact-card">
+            <span>◉</span>
+            <h3>Messenger</h3>
+            <a href="https://www.facebook.com/messages/t/61583916377340/" target="_blank">Bini - Bini Beauty Lounge</a>
+            <p>Send us a message</p>
+        </article>
+    </div>
+</section>
+
+
+
+<!-- FOOTER SECTION -->
+<footer class="footer">
+
+    <!-- LEFT COLUMN: BRAND, FACEBOOK AND ADDRESS -->
+    <div class="footer-brand">
+        <h2>BINIBINI BEAUTY LOUNGE</h2>
+
+        <p>Loving your skin is not vanity, it's sanity.</p>
+        <p>Let your confidence shine, Binibini!</p>
+
+        <a href="https://www.facebook.com/profile.php?id=61565244151210"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="footer-facebook">
+
+            <svg viewBox="0 0 24 24" width="28" height="28"
+                 fill="currentColor">
+                <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.973h-1.513c-1.49 0-1.956.93-1.956 1.885v2.263h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073Z"/>
+            </svg>
+
+            <span>Follow us on Facebook</span>
+        </a>
+
+        <!-- ADDRESS MUST BE INSIDE FOOTER-BRAND -->
+        <div class="footer-address">
+            <span>📍</span>
+            
+                425 Molino 3, Bacoor (infront of STATEFIELDS SCHOOL), Cavite Philippines 4102
+            </a>
+        </div>
+    </div>
+
+    <!-- MIDDLE COLUMN: QUICK LINKS -->
+    <div class="footer-links">
+        <h3>Quick Links</h3>
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#promotions">Promotions</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact Us</a>
+    </div>
+
+    <!-- RIGHT COLUMN: CUSTOMER INFORMATION -->
+    <div class="footer-links">
+        <h3>Customer Information</h3>
+        <a href="#contact">Contact Details</a>
+        <a href="#" onclick="showPrivacy(); return false;">Data Privacy</a>
+        <a href="#" onclick="showPolicy(); return false;">Booking Policy</a>
+    </div>
+
+    <div class="copyright">
+        © 2026 BINIBINI BEAUTY LOUNGE. All Rights Reserved.
+    </div>
+
+</footer>
+
+
+ 
+ 
+
+<!-- SHOPPING CART -->
+<div class="overlay" id="cart-overlay" onclick="closeCart()"></div>
+<aside class="side-panel" id="cart-panel">
+    <button class="close-btn" onclick="closeCart()">×</button>
+    <h2>My Basket</h2>
+    <div id="cart-items"></div>
+    <h3 id="cart-total">Total: ₱0.00</h3>
+    <button class="btn btn-primary full" onclick="checkout()">Checkout</button>
+</aside>
+
+<!-- LOGIN MODAL -->
+<div class="modal" id="login-modal">
+    <div class="modal-box">
+        <button class="close-btn" onclick="closeModal('login-modal')">×</button>
+        <h2>Member Login</h2>
+        <p>Welcome back to BINIBINI!</p>
+        <form id="login-form">
+            <label>Email</label>
+            <input type="email" id="login-email" required>
+            <label>Password</label>
+            <input type="password" id="login-password" required>
+            <button class="btn btn-primary full">Log In</button>
+        </form>
+        <p class="demo-note">Demo account: client@binibini.com<br>Password: Bini123!</p>
+        <p>New customer? <a href="#" onclick="openSignup()">Create an account</a></p>
+    </div>
+</div>
+
+<!-- SIGN UP MODAL -->
+<div class="modal" id="signup-modal">
+    <div class="modal-box">
+        <button class="close-btn" onclick="closeModal('signup-modal')">×</button>
+        <h2>Create Account</h2>
+        <form id="signup-form">
+            <label>Full Name</label>
+            <input id="signup-name" required>
+            <label>Contact Number</label>
+            <input id="signup-contact" type="tel" required>
+            <label>Delivery Address</label>
+            <textarea id="signup-address" required></textarea>
+            <label>Email</label>
+            <input id="signup-email" type="email" required>
+            <label>Password</label>
+            <input id="signup-password" type="password" minlength="6" required>
+            <button class="btn btn-primary full">Sign Up</button>
+        </form>
+    </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal" id="checkout-modal">
+    <div class="modal-box">
+        <button class="close-btn" onclick="closeModal('checkout-modal')">×</button>
+        <h2>Checkout</h2>
+        <div id="checkout-summary"></div>
+        <form id="checkout-form">
+            <label>Order Type</label>
+            <select id="delivery-type" required>
+                <option value="pickup">Pick up at the salon</option>
+                <option value="delivery">Delivery</option>
+            </select>
+            <label>Payment Method</label>
+            <select id="payment-method" required>
+                <option value="cash">Cash (salon pickup only)</option>
+                <option value="qr">QR payment (delivery)</option>
+            </select>
+            <div id="qr-area" class="hidden">
+                <p>DEMO QR CODE — NOT FOR REAL PAYMENT</p>
+                <div class="fake-qr">BINIBINI<br>DEMO QR<br>NOT PAYABLE</div>
+            </div>
+            <label>Payment Reference Number</label>
+            <input id="payment-reference" placeholder="Enter demo reference number" required>
+            <button class="btn btn-primary full">Complete Demo Purchase</button>
+        </form>
+    </div>
+</div>
+
+<!-- INFORMATION MODAL -->
+<div class="modal" id="info-modal">
+    <div class="modal-box">
+        <button class="close-btn" onclick="closeModal('info-modal')">×</button>
+        <h2 id="info-title"></h2>
+        <p id="info-content"></p>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

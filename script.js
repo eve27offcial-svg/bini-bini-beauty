@@ -416,7 +416,7 @@ document.getElementById("checkout-form").addEventListener("submit", e => {
         "\nCustomer: " + currentUser.name +
         "\nPayment: " + method.toUpperCase() +
         "\nReference: " + (ref || "Cash on pickup") +
-        "\n\nThis is a school-project simulation. No actual payment was processed."
+        
     );
 
     cart = {};
@@ -476,6 +476,6 @@ function showPrivacy() {
 function showPolicy() {
     document.getElementById("info-title").textContent = "Booking Policy";
     document.getElementById("info-content").textContent =
-        "A 50% reservation fee is required. If a customer does not attend the appointment, the reservation fee is forfeited. If the customer attends, the fee is deducted from the final bill.";
+        "A 50% reservation fee is required. If a customer does not attend the appointment, the reservation fee is forfeited. If the customer attends, the fee is deducted from the final bill. If the customer wish to rebook the appointment,they may do so providing the choosen appointment date is available. This only applies 24hrs before the scheduled booking date.";
     openModal("info-modal");
 }

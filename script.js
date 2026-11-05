@@ -411,13 +411,12 @@ document.getElementById("checkout-form").addEventListener("submit", e => {
     const orderNumber = "BINI-" + Date.now();
 
     alert(
-        "DEMO ORDER SUCCESSFUL!\n" +
-        "Order: " + orderNumber +
-        "\nCustomer: " + currentUser.name +
-        "\nPayment: " + method.toUpperCase() +
-        "\nReference: " + (ref || "Cash on pickup") +
-        
-    );
+    "DEMO ORDER SUCCESSFUL!\n" +
+    "Order: " + orderNumber +
+    "\nCustomer: " + currentUser.name +
+    "\nPayment: " + method.toUpperCase() +
+    "\nReference: " + (ref || "Cash on pickup")
+);
 
     cart = {};
     saveCart();

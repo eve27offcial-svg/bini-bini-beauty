@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Appointment | BINIBINI</title>
+
+    <link rel="stylesheet" href="booking.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        .appointment-status-container {
+            max-width: 750px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .status-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 8px 30px rgba(100, 60, 70, 0.10);
+            border: 1px solid #f0dfe4;
+        }
+
+        .status-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .status-header .eyebrow {
+            color: #bd8192;
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        .status-header h1 {
+            font-family: "Playfair Display", serif;
+            color: #30272a;
+            margin: 8px 0;
+        }
+
+        .status-header p {
+            color: #777;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            margin: 10px 0 25px;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-confirmed {
+            background: #dff5e5;
+            color: #26733f;
+        }
+
+        .status-cancelled {
+            background: #f8dede;
+            color: #9b3d3d;
+        }
+
+        .appointment-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .detail {
+            background: #fffaf7;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .detail label {
+            display: block;
+            font-size: 11px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .detail span {
+            color: #30272a;
+            font-weight: 500;
+        }
+
+        .message-box {
+            margin-top: 25px;
+            padding: 18px;
+            background: #f8edef;
+            border-radius: 12px;
+            text-align: center;
+            color: #5f4c51;
+        }
+
+        .no-booking {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .no-booking h2 {
+            font-family: "Playfair Display", serif;
+            color: #30272a;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: #bd8192;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+        }
+
+        @media (max-width: 600px) {
+            .appointment-details {
+                grid-template-columns: 1fr;
+            }
+
+            .status-card {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="booking-header">
+
+    <a href="index.html" class="booking-brand">
+        <img src="images/bini-logo.png" alt="BINIBINI logo">
+        BINIBINI BEAUTY LOUNGE
+    </a>
+
+    <a href="index.html" class="back-link">
+        ← Back to Website
+    </a>
+
+</header>
+
+
+<main class="appointment-status-container">
+
+    <div id="appointment-content"></div>
+
+</main>
+
+
+<script src="my-appointment.js"></script>
+
+</body>
+</html>

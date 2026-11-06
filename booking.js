@@ -356,25 +356,60 @@ function confirmAppointment() {
 
     const bookingNumber = "BINI-BOOK-" + Date.now();
 
-    const booking = {
-        ...pendingBooking,
-        bookingNumber,
-        paymentMethod: method,
-        reference: method === "qr" ? reference : "Cash at salon",
-        status: "Demo confirmed"
-    };
+const booking = {
+    id: Date.now(),
+    bookingNumber,
+    name: pendingBooking.customer,
+    customer: pendingBooking.customer,
+    email: pendingBooking.email,
+    contact: pendingBooking.contact,
+    service: pendingBooking.service,
+    date: pendingBooking.date,
+    time: pendingBooking.time,
+    price: pendingBooking.price,
+    fee: pendingBooking.fee,
+    paymentMethod: method,
+    reference: method === "qr" ? reference : "Cash at salon",
+    status: "Pending"
+};
 
-    // Save the appointment.
-    let allBookings = JSON.parse(
-        localStorage.getItem("biniAppointments") || "[]"
-    );
+// Save appointment for the customer booking history
+let allBookings = JSON.parse(
+    localStorage.getItem("biniAppointments") || "[]"
+);
 
-    allBookings.push(booking);
+allBookings.push(booking);
 
-    localStorage.setItem(
-        "biniAppointments",
-        JSON.stringify(allBookings)
-    );
+localStorage.setItem(
+    "biniAppointments",
+    JSON.stringify(allBookings)
+);
+
+// Save the same booking for the ADMIN DASHBOARD
+let adminBookings = JSON.parse(
+    localStorage.getItem("binibiniBookings") || "[]"
+);
+
+adminBookings.push({
+    id: booking.id,
+    bookingNumber: booking.bookingNumber,
+    name: booking.name,
+    email: booking.email,
+    contact: booking.contact,
+    service: booking.service,
+    date: booking.date,
+    time: booking.time,
+    price: booking.price,
+    fee: booking.fee,
+    paymentMethod: booking.paymentMethod,
+    reference: booking.reference,
+    status: "Pending"
+});
+
+localStorage.setItem(
+    "binibiniBookings",
+    JSON.stringify(adminBookings)
+);
 
     // Mark the time slot as booked.
     if (!bookedSlots[booking.date]) {

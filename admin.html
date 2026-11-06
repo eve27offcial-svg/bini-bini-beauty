@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BINIBINI Admin Dashboard</title>
+
+    <link rel="stylesheet" href="admin.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-brand">
+
+        <div class="logo-circle">B</div>
+
+        <div>
+            <h2>BINIBINI</h2>
+            <span>ADMIN PANEL</span>
+        </div>
+
+    </div>
+
+
+    <nav>
+
+    <a href="#dashboard" class="active">
+        📊 Dashboard
+    </a>
+
+    <a href="#bookings"
+       onclick="document.getElementById('bookings').scrollIntoView({ behavior: 'smooth' });">
+        📅 Bookings
+    </a>
+
+    <a href="#website-content"
+       onclick="document.getElementById('website-content').scrollIntoView({ behavior: 'smooth' });">
+        ✏️ Website Content
+    </a>
+
+    <a href="https://eve27offcial-svg.github.io/bini-bini-beauty/">
+        🌸 View Website
+    </a>
+
+</nav>
+
+
+    <button class="logout-btn" onclick="adminLogout()">
+        Log Out
+    </button>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="admin-main">
+
+    <!-- TOP BAR -->
+
+    <header class="admin-header">
+
+        <div>
+
+            <p class="eyebrow">BINIBINI BEAUTY LOUNGE</p>
+
+            <h1>Admin Dashboard</h1>
+
+        </div>
+
+        <div class="admin-user">
+            👤 Administrator
+        </div>
+
+    </header>
+
+
+    <!-- DASHBOARD -->
+
+    <section id="dashboard">
+
+        <div class="welcome-box">
+
+            <div>
+
+                <h2>Welcome, Administrator</h2>
+
+                <p>
+                    Manage and monitor BINIBINI customer appointments.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+
+                <span class="stat-icon">📅</span>
+
+                <div>
+                    <p>Total Bookings</p>
+                    <h2 id="total-bookings">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-icon">⏳</span>
+
+                <div>
+                    <p>Pending</p>
+                    <h2 id="pending-bookings">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-icon">✓</span>
+
+                <div>
+                    <p>Confirmed</p>
+                    <h2 id="confirmed-bookings">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-icon">✕</span>
+
+                <div>
+                    <p>Cancelled</p>
+                    <h2 id="cancelled-bookings">0</h2>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+ <!-- APPOINTMENT CALENDAR -->
+
+    <section class="calendar-section">
+
+        <div class="calendar-header">
+
+            <div>
+
+                <p class="eyebrow">
+                    BOOKING SCHEDULE
+                </p>
+
+                <h2>
+                    Appointment Calendar
+                </h2>
+
+            </div>
+
+
+            <div class="calendar-controls">
+
+                <button
+                    type="button"
+                    id="calendar-prev">
+                    ‹
+                </button>
+
+
+                <h3 id="calendar-month-year">
+                    November 2026
+                </h3>
+
+
+                <button
+                    type="button"
+                    id="calendar-next">
+                    ›
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- DAYS OF THE WEEK -->
+
+        <div class="calendar-weekdays">
+
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+
+        </div>
+
+
+        <!-- CALENDAR -->
+
+        <div
+            id="admin-calendar"
+            class="admin-calendar">
+        </div>
+
+
+        <!-- CALENDAR LEGEND -->
+
+        <div class="calendar-legend">
+
+            <span>
+                <span class="legend-dot pending-dot"></span>
+                Pending
+            </span>
+
+            <span>
+                <span class="legend-dot confirmed-dot"></span>
+                Confirmed
+            </span>
+
+            <span>
+                <span class="legend-dot cancelled-dot"></span>
+                Cancelled
+            </span>
+
+        </div>
+
+
+        <!-- SELECTED DATE APPOINTMENTS -->
+
+        <div
+            id="calendar-appointments"
+            class="calendar-appointments">
+
+            <p>
+                Select a date to view appointments.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- BOOKINGS -->
+
+    <section id="bookings" class="booking-section">
+
+        <div class="section-title">
+
+            <div>
+
+                <p class="eyebrow">APPOINTMENT MANAGEMENT</p>
+
+                <h2>Customer Bookings</h2>
+
+            </div>
+
+        </div>
+
+
+        <!-- SEARCH + FILTER -->
+
+        <div class="booking-controls">
+
+            <input
+                type="text"
+                id="search-bookings"
+                placeholder="Search customer or service..."
+                oninput="renderBookings()"
+            >
+
+
+            <select
+                id="status-filter"
+                onchange="renderBookings()"
+            >
+
+                <option value="all">
+                    All Status
+                </option>
+
+                <option value="Pending">
+                    Pending
+                </option>
+
+                <option value="Confirmed">
+                    Confirmed
+                </option>
+
+                <option value="Cancelled">
+                    Cancelled
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- BOOKING TABLE -->
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Customer</th>
+
+                        <th>Contact</th>
+
+                        <th>Service</th>
+
+                        <th>Date</th>
+
+                        <th>Time</th>
+
+                        <th>Status</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="booking-table-body">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <div id="no-bookings" class="no-bookings">
+
+            No bookings found.
+
+        </div>
+
+    </section>
+<!-- WEBSITE CONTENT MANAGEMENT -->
+
+<section id="website-content" class="content-section">
+
+    <div class="section-title">
+
+        <div>
+
+            <p class="eyebrow">
+                WEBSITE MANAGEMENT
+            </p>
+
+            <h2>
+                Website Content
+            </h2>
+
+            <p>
+                Edit the information displayed on the BINIBINI website.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- HOME / HERO -->
+
+    <div class="content-card">
+
+        <h3>
+            🏠 Home / Hero Section
+        </h3>
+
+        <label>
+            Hero Title
+        </label>
+
+        <input
+            type="text"
+            id="content-hero-title"
+            placeholder="Enter hero title"
+        >
+
+
+        <label>
+            Hero Description
+        </label>
+
+        <textarea
+            id="content-hero-description"
+            rows="4"
+            placeholder="Enter hero description"
+        ></textarea>
+
+    </div>
+
+
+    <!-- ABOUT US -->
+
+    <div class="content-card">
+
+        <h3>
+            ℹ️ About Us
+        </h3>
+
+        <label>
+            About Us Description
+        </label>
+
+        <textarea
+            id="content-about"
+            rows="6"
+            placeholder="Enter About Us content"
+        ></textarea>
+
+    </div>
+
+
+    <!-- CONTACT -->
+
+    <div class="content-card">
+
+        <h3>
+            📞 Contact Information
+        </h3>
+
+        <label>
+            Phone Number
+        </label>
+
+        <input
+            type="text"
+            id="content-phone"
+            placeholder="Enter phone number"
+        >
+
+
+        <label>
+            Email
+        </label>
+
+        <input
+            type="email"
+            id="content-email"
+            placeholder="Enter email address"
+        >
+
+
+        <label>
+            Address
+        </label>
+
+        <textarea
+            id="content-address"
+            rows="3"
+            placeholder="Enter salon address"
+        ></textarea>
+
+    </div>
+
+
+    <!-- PROMOTION -->
+
+    <div class="content-card">
+
+        <h3>
+            🎁 Promotion
+        </h3>
+
+        <label>
+            Promotion Title
+        </label>
+
+        <input
+            type="text"
+            id="content-promo-title"
+            placeholder="Enter promotion title"
+        >
+
+
+        <label>
+            Promotion Description
+        </label>
+
+        <textarea
+            id="content-promo-description"
+            rows="4"
+            placeholder="Enter promotion details"
+        ></textarea>
+
+    </div>
+
+
+    <!-- SAVE -->
+
+    <div class="content-save-area">
+
+        <button
+            type="button"
+            class="save-content-btn"
+            onclick="saveWebsiteContent()">
+            💾 Save Website Content
+        </button>
+
+
+        <button
+            type="button"
+            class="reset-content-btn"
+            onclick="loadWebsiteContent()">
+            ↻ Reset Changes
+        </button>
+
+
+        <p id="content-save-message"></p>
+
+    </div>
+
+</section>
+</main>
+
+
+<!-- EDIT BOOKING MODAL -->
+
+<div class="admin-modal" id="edit-modal">
+
+    <div class="admin-modal-box">
+
+        <button
+            class="modal-close"
+            onclick="closeEditModal()">
+            ×
+        </button>
+
+        <h2>Edit Booking</h2>
+
+        <form id="edit-booking-form">
+
+            <input type="hidden" id="edit-id">
+
+            <label>Customer Name</label>
+
+            <input
+                type="text"
+                id="edit-name"
+                required
+            >
+
+
+            <label>Contact Number</label>
+
+            <input
+                type="text"
+                id="edit-contact"
+                required
+            >
+
+
+            <label>Service</label>
+
+            <input
+                type="text"
+                id="edit-service"
+                required
+            >
+
+
+            <label>Appointment Date</label>
+
+            <input
+                type="date"
+                id="edit-date"
+                required
+            >
+
+
+            <label>Appointment Time</label>
+
+            <input
+                type="time"
+                id="edit-time"
+                required
+            >
+
+
+            <label>Status</label>
+
+            <select id="edit-status">
+
+                <option value="Pending">
+                    Pending
+                </option>
+
+                <option value="Confirmed">
+                    Confirmed
+                </option>
+
+                <option value="Cancelled">
+                    Cancelled
+                </option>
+
+            </select>
+
+
+            <button type="submit" class="save-btn">
+                Save Changes
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script src="admin.js"></script>
+
+</body>
+</html>

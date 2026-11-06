@@ -478,3 +478,162 @@ function showPolicy() {
         "A 50% reservation fee is required. If a customer does not attend the appointment, the reservation fee is forfeited. If the customer attends, the fee is deducted from the final bill. If the customer wish to rebook the appointment,they may do so providing the choosen appointment date is available. This only applies 24hrs before the scheduled booking date.";
     openModal("info-modal");
 }
+/* ==========================================
+   LOAD ADMIN WEBSITE CONTENT
+========================================== */
+
+function loadAdminWebsiteContent() {
+
+    const savedContent =
+        JSON.parse(
+            localStorage.getItem("binibiniWebsiteContent") || "null"
+        );
+
+    if (!savedContent) {
+        return;
+    }
+
+
+    /* HERO TITLE */
+
+    const heroTitle =
+        document.getElementById("hero-title");
+
+    if (heroTitle && savedContent.heroTitle) {
+
+        heroTitle.innerHTML =
+            savedContent.heroTitle.replace(
+                /\n/g,
+                "<br>"
+            );
+
+    }
+
+
+    /* HERO DESCRIPTION */
+
+    const heroDescription =
+        document.getElementById(
+            "hero-description"
+        );
+
+    if (
+        heroDescription &&
+        savedContent.heroDescription
+    ) {
+
+        heroDescription.textContent =
+            savedContent.heroDescription;
+
+    }
+
+
+    /* ABOUT */
+
+    const about =
+        document.getElementById(
+            "about-description"
+        );
+
+    if (
+        about &&
+        savedContent.about
+    ) {
+
+        about.textContent =
+            savedContent.about;
+
+    }
+
+
+    /* PHONE */
+
+    const phone =
+        document.getElementById(
+            "contact-phone"
+        );
+
+    if (
+        phone &&
+        savedContent.phone
+    ) {
+
+        phone.textContent =
+            savedContent.phone;
+
+        phone.href =
+            "tel:" +
+            savedContent.phone.replace(
+                /\s/g,
+                ""
+            );
+
+    }
+
+
+    /* EMAIL */
+
+    const email =
+        document.getElementById(
+            "contact-email"
+        );
+
+    if (
+        email &&
+        savedContent.email
+    ) {
+
+        email.textContent =
+            savedContent.email;
+
+        email.href =
+            "mailto:" +
+            savedContent.email;
+
+    }
+
+
+    /* PROMOTION TITLE */
+
+    const promoTitle =
+        document.getElementById(
+            "promo-title"
+        );
+
+    if (
+        promoTitle &&
+        savedContent.promoTitle
+    ) {
+
+        promoTitle.textContent =
+            savedContent.promoTitle;
+
+    }
+
+
+    /* PROMOTION DESCRIPTION */
+
+    const promoDescription =
+        document.getElementById(
+            "promo-description"
+        );
+
+    if (
+        promoDescription &&
+        savedContent.promoDescription
+    ) {
+
+        promoDescription.textContent =
+            savedContent.promoDescription;
+
+    }
+
+}
+
+
+/* LOAD CONTENT WHEN PAGE OPENS */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    loadAdminWebsiteContent
+);

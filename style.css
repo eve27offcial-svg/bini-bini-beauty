@@ -150,38 +150,41 @@ button {
 }
 
 
-/* HERO SECTION */
+/* =================================
+   HERO SECTION
+================================= */
 
 .hero {
     min-height: 620px;
     display: flex;
-    align-items: stretch;
-    padding: 35px 7.5% 55px;
+    align-items: flex-end;
+    padding: 35px 7.5% 60px;
 
     background:
-        linear-gradient(90deg, #1c141044, transparent 65%),
+        linear-gradient(90deg, #1c141055, transparent 70%),
         url("bini-cover.png") center center / cover no-repeat;
 
-    color: white;
+    color: #30272a;
 }
 
 .hero-content {
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: flex-start;
 }
 
 .hero-intro {
     text-align: left;
+    max-width: 700px;
 }
 
 .hero .eyebrow {
-    color: white;
+    color: #30272a;
     font-size: 11px;
     letter-spacing: 5px;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 18px;
 }
 
@@ -190,13 +193,19 @@ button {
     font-size: clamp(48px, 6vw, 76px);
     line-height: 1.15;
     margin: 0;
-    color: white;
+    color: #30272a;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.35);
 }
 
 .hero h1 span {
-    color: #e8b6c5;
+    color: #7f4f5c;
 }
 
+.hero-intro p {
+    color: #30272a;
+}
+
+/* BUTTONS AT LOWER LEFT */
 .hero-buttons {
     display: flex;
     flex-direction: row;
@@ -204,6 +213,28 @@ button {
     align-items: center;
     justify-content: flex-start;
     margin-top: 30px;
+}
+
+/* BUTTON BASE */
+.hero-buttons .btn {
+    padding: 12px 25px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+/* VIEW SERVICES */
+.hero-buttons .btn-outline {
+    color: #30272a;
+    border: 1px solid #30272a;
+    background: rgba(255, 250, 247, 0.85);
+}
+
+/* BOOK NOW */
+.hero-buttons .btn-primary {
+    background: #bd8192;
+    border: 1px solid #bd8192;
+    color: #ffffff;
 }
 
 

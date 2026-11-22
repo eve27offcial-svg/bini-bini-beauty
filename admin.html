@@ -44,6 +44,11 @@
         📅 Bookings
     </a>
 
+    <a href="#inventory"
+   onclick="document.getElementById('inventory').scrollIntoView({ behavior: 'smooth' });">
+    📦 Inventory
+</a>
+
     <a href="#website-content"
        onclick="document.getElementById('website-content').scrollIntoView({ behavior: 'smooth' });">
         ✏️ Website Content
@@ -364,6 +369,186 @@
 
     </section>
 <!-- WEBSITE CONTENT MANAGEMENT -->
+<!-- ==========================================
+     INVENTORY MANAGEMENT
+========================================== -->
+
+<section id="inventory" class="inventory-section">
+
+    <div class="section-title">
+
+        <div>
+
+            <p class="eyebrow">
+                PRODUCT MANAGEMENT
+            </p>
+
+            <h2>
+                Inventory
+            </h2>
+
+            <p>
+                Manage the stock available for BINIBINI featured products.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="inventory-grid">
+
+
+        <!-- PRODUCT 1 -->
+
+        <div class="inventory-card">
+
+            <div class="inventory-image">
+
+                <img
+                    src="product-1.jpg"
+                    alt="BINIBINI Sunscreen Protection Cream">
+
+            </div>
+
+
+            <div class="inventory-info">
+
+                <p class="inventory-category">
+                    FEATURED PRODUCT
+                </p>
+
+                <h3>
+                    BINIBINI Sunscreen Protection Cream
+                </h3>
+
+                <p class="inventory-price">
+                    ₱450.00
+                </p>
+
+
+                <div class="stock-row">
+
+                    <span>
+                        Current Stock
+                    </span>
+
+                    <strong id="admin-stock-p1">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <label for="stock-input-p1">
+                    Update Stock
+                </label>
+
+                <input
+                    type="number"
+                    id="stock-input-p1"
+                    min="0"
+                    placeholder="Enter stock quantity"
+                >
+
+
+                <button
+                    type="button"
+                    class="inventory-save-btn"
+                    onclick="updateProductStock('p1')">
+
+                    Save Stock
+
+                </button>
+
+
+                <p
+                    id="inventory-message-p1"
+                    class="inventory-message">
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PRODUCT 2 -->
+
+        <div class="inventory-card">
+
+            <div class="inventory-image">
+
+                <img
+                    src="product-2.jpg"
+                    alt="Bini-Bini Beauty Revitalizing Set">
+
+            </div>
+
+
+            <div class="inventory-info">
+
+                <p class="inventory-category">
+                    FEATURED PRODUCT
+                </p>
+
+                <h3>
+                    Bini-Bini Beauty Revitalizing Set
+                </h3>
+
+                <p class="inventory-price">
+                    ₱350.00
+                </p>
+
+
+                <div class="stock-row">
+
+                    <span>
+                        Current Stock
+                    </span>
+
+                    <strong id="admin-stock-p2">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <label for="stock-input-p2">
+                    Update Stock
+                </label>
+
+                <input
+                    type="number"
+                    id="stock-input-p2"
+                    min="0"
+                    placeholder="Enter stock quantity"
+                >
+
+
+                <button
+                    type="button"
+                    class="inventory-save-btn"
+                    onclick="updateProductStock('p2')">
+
+                    Save Stock
+
+                </button>
+
+
+                <p
+                    id="inventory-message-p2"
+                    class="inventory-message">
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
 
 <section id="website-content" class="content-section">
 

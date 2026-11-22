@@ -1418,3 +1418,188 @@ window.addEventListener(
 
     }
 );
+/* ==========================================
+   INVENTORY MANAGEMENT
+========================================== */
+
+
+const adminProducts = {
+
+    p1: {
+        name: "BINIBINI Sunscreen Protection Cream",
+        price: 450,
+        defaultStock: 10
+    },
+
+    p2: {
+        name: "Bini-Bini Beauty Revitalizing Set",
+        price: 350,
+        defaultStock: 8
+    }
+
+};
+
+
+/* ------------------------------------------
+   GET INVENTORY
+------------------------------------------ */
+
+function getInventory() {
+
+    let inventory =
+        JSON.parse(
+            localStorage.getItem("biniStock")
+            || "null"
+        );
+
+
+    if (!inventory) {
+
+        inventory = {
+            p1: 10,
+            p2: 8
+        };
+
+        localStorage.setItem(
+            "biniStock",
+            JSON.stringify(inventory)
+        );
+
+    }
+
+
+    return inventory;
+
+}
+
+
+/* ------------------------------------------
+   LOAD INVENTORY INTO ADMIN
+------------------------------------------ */
+
+function loadAdminInventory() {
+
+    const inventory =
+        getInventory();
+
+
+    if (document.getElementById("admin-stock-p1")) {
+
+        document.getElementById(
+            "admin-stock-p1"
+        ).textContent =
+            inventory.p1 ?? 0;
+
+    }
+
+
+    if (document.getElementById("admin-stock-p2")) {
+
+        document.getElementById(
+            "admin-stock-p2"
+        ).textContent =
+            inventory.p2 ?? 0;
+
+    }
+
+}
+
+
+/* ------------------------------------------
+   UPDATE PRODUCT STOCK
+------------------------------------------ */
+
+function updateProductStock(productId) {
+
+    const input =
+        document.getElementById(
+            `stock-input-${productId}`
+        );
+
+
+    if (!input) {
+        return;
+    }
+
+
+    const newStock =
+        Number(input.value);
+
+
+    if (
+        input.value === "" ||
+        !Number.isInteger(newStock) ||
+        newStock < 0
+    ) {
+
+        alert(
+            "Please enter a valid stock quantity."
+        );
+
+        return;
+
+    }
+
+
+    const inventory =
+        getInventory();
+
+
+    inventory[productId] =
+        newStock;
+
+
+    localStorage.setItem(
+        "biniStock",
+        JSON.stringify(inventory)
+    );
+
+
+    const stockDisplay =
+        document.getElementById(
+            `admin-stock-${productId}`
+        );
+
+
+    if (stockDisplay) {
+
+        stockDisplay.textContent =
+            newStock;
+
+    }
+
+
+    const message =
+        document.getElementById(
+            `inventory-message-${productId}`
+        );
+
+
+    if (message) {
+
+        message.textContent =
+            "✓ Stock updated successfully.";
+
+        setTimeout(function () {
+
+            message.textContent = "";
+
+        }, 3000);
+
+    }
+
+}
+
+
+/* ------------------------------------------
+   LOAD INVENTORY WHEN ADMIN OPENS
+------------------------------------------ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        loadAdminInventory();
+
+    }
+);

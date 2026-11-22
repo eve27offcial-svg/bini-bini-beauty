@@ -1252,3 +1252,153 @@ tr:hover td {
     }
 
 }
+/* ==========================================
+   INVENTORY MANAGEMENT
+========================================== */
+
+.inventory-section {
+    margin-top: 50px;
+    padding: 35px;
+    background: #fffaf7;
+    border-radius: 18px;
+}
+
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.inventory-card {
+    background: white;
+    border: 1px solid #eadede;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+}
+
+.inventory-image {
+    width: 100%;
+    height: 230px;
+    overflow: hidden;
+    background: #f5eee9;
+}
+
+.inventory-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.inventory-info {
+    padding: 25px;
+}
+
+.inventory-category {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: #a56f7d;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.inventory-info h3 {
+    font-family: "Playfair Display", serif;
+    color: #3d2c2c;
+    margin-bottom: 10px;
+}
+
+.inventory-price {
+    color: #8f5968;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.stock-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: #faf4f1;
+    border-radius: 10px;
+    margin-bottom: 18px;
+}
+
+.stock-row span {
+    font-size: 13px;
+    color: #666;
+}
+
+.stock-row strong {
+    font-size: 20px;
+    color: #8f5968;
+}
+
+.inventory-info label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #555;
+}
+
+.inventory-info input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 13px;
+    border: 1px solid #ddd0ca;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-family: "Poppins", sans-serif;
+}
+
+.inventory-info input:focus {
+    outline: none;
+    border-color: #bd8192;
+}
+
+.inventory-save-btn {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: 25px;
+    background: #bd8192;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.inventory-save-btn:hover {
+    background: #986273;
+}
+
+.inventory-message {
+    min-height: 18px;
+    margin-top: 10px;
+    color: #6c8b6c;
+    font-size: 12px;
+    text-align: center;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .inventory-section {
+        padding: 20px;
+    }
+
+    .inventory-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .inventory-image {
+        height: 200px;
+    }
+
+}

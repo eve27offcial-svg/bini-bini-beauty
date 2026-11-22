@@ -1077,14 +1077,13 @@ button {
 }
 /* HERO TEXT BACKGROUND */
 .hero-intro {
-    background: rgba(255, 250, 247, 0.28);
+    background: rgba(255, 250, 247, 0.12);
     padding: 25px 32px;
     border-radius: 12px;
     max-width: 720px;
     box-shadow: 0 5px 25px rgba(48, 39, 42, 0.08);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-}
+    backdrop-filter: none;
+-webkit-backdrop-filter: none;
 
 .hero .eyebrow {
     color: #30272a;

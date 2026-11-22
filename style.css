@@ -160,7 +160,7 @@ button {
 
     background:
         linear-gradient(90deg, #1c141044, transparent 65%),
-        url("bini-cover.jpg") center center / cover no-repeat;
+        url("bini-cover.png") center center / cover no-repeat;
 
     color: white;
 }
@@ -199,10 +199,11 @@ button {
 
 .hero-buttons {
     display: flex;
+    flex-direction: row;
     gap: 15px;
     align-items: center;
-    flex-wrap: wrap;
-    margin-top: 25px;
+    justify-content: flex-start;
+    margin-top: 30px;
 }
 
 

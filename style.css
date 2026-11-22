@@ -1075,3 +1075,27 @@ button {
     background: #bd8192;
     color: white;
 }
+/* HERO TEXT BACKGROUND */
+.hero-intro {
+    background: rgba(255, 250, 247, 0.88);
+    padding: 25px 32px;
+    border-radius: 12px;
+    max-width: 720px;
+    box-shadow: 0 5px 25px rgba(48, 39, 42, 0.15);
+}
+
+.hero .eyebrow {
+    color: #30272a;
+}
+
+.hero h1 {
+    color: #30272a;
+}
+
+.hero h1 span {
+    color: #7f4f5c;
+}
+
+.hero-intro p {
+    color: #30272a;
+}

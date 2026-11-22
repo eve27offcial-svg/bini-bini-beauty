@@ -1084,3 +1084,337 @@ document.addEventListener(
 
     }
 );
+/* ==========================================
+   CUSTOMER CANCELLATION NOTIFICATIONS
+========================================== */
+
+
+/* ------------------------------------------
+   GET UNREAD CANCELLATIONS
+------------------------------------------ */
+
+function getUnreadCancellationNotifications() {
+
+    const bookings = JSON.parse(
+        localStorage.getItem("binibiniBookings") || "[]"
+    );
+
+    return bookings.filter(function (booking) {
+
+        return (
+            booking.status === "Cancelled" &&
+            booking.cancelledBy === "Customer" &&
+            booking.notificationRead !== true
+        );
+
+    });
+
+}
+
+
+/* ------------------------------------------
+   CREATE NOTIFICATION AREA
+------------------------------------------ */
+
+function createCancellationNotificationArea() {
+
+    if (
+        document.getElementById(
+            "customer-cancellation-notification"
+        )
+    ) {
+        return;
+    }
+
+
+    const notification = document.createElement("div");
+
+    notification.id =
+        "customer-cancellation-notification";
+
+
+    notification.style.position = "fixed";
+    notification.style.top = "20px";
+    notification.style.right = "20px";
+    notification.style.width = "360px";
+    notification.style.maxWidth = "calc(100% - 40px)";
+    notification.style.background = "#fff8f8";
+    notification.style.border = "1px solid #d99a9a";
+    notification.style.borderRadius = "12px";
+    notification.style.padding = "20px";
+    notification.style.boxShadow =
+        "0 8px 30px rgba(0,0,0,0.15)";
+    notification.style.zIndex = "99999";
+    notification.style.fontFamily =
+        "Poppins, Arial, sans-serif";
+
+
+    document.body.appendChild(notification);
+
+}
+
+
+/* ------------------------------------------
+   SHOW CANCELLATION NOTIFICATIONS
+------------------------------------------ */
+
+function checkCancellationNotifications() {
+
+    createCancellationNotificationArea();
+
+
+    const container =
+        document.getElementById(
+            "customer-cancellation-notification"
+        );
+
+
+    const notifications =
+        getUnreadCancellationNotifications();
+
+
+    if (notifications.length === 0) {
+
+        container.style.display = "none";
+
+        return;
+
+    }
+
+
+    container.style.display = "block";
+
+
+    let html = `
+
+        <div style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:15px;
+        ">
+
+            <strong style="
+                color:#8f3f4f;
+                font-size:16px;
+            ">
+                🔔 Appointment Cancellation
+            </strong>
+
+            <span style="
+                background:#9b3d3d;
+                color:white;
+                border-radius:20px;
+                padding:4px 9px;
+                font-size:11px;
+                font-weight:600;
+            ">
+                ${notifications.length}
+            </span>
+
+        </div>
+
+    `;
+
+
+    notifications.forEach(function (booking) {
+
+        html += `
+
+            <div style="
+                border-top:1px solid #eadede;
+                padding-top:14px;
+                margin-top:14px;
+            ">
+
+                <p style="
+                    margin:0 0 8px;
+                    color:#333;
+                    font-size:13px;
+                    line-height:1.5;
+                ">
+
+                    <strong>
+                        ${escapeHTML(
+                            booking.name || "Customer"
+                        )}
+                    </strong>
+
+                    cancelled their appointment.
+
+                </p>
+
+
+                <p style="
+                    margin:4px 0;
+                    color:#666;
+                    font-size:12px;
+                ">
+
+                    <strong>Service:</strong>
+                    ${escapeHTML(
+                        booking.service || "N/A"
+                    )}
+
+                </p>
+
+
+                <p style="
+                    margin:4px 0;
+                    color:#666;
+                    font-size:12px;
+                ">
+
+                    <strong>Date:</strong>
+                    ${escapeHTML(
+                        booking.date || "N/A"
+                    )}
+
+                </p>
+
+
+                <p style="
+                    margin:4px 0;
+                    color:#666;
+                    font-size:12px;
+                ">
+
+                    <strong>Time:</strong>
+                    ${escapeHTML(
+                        booking.time || "N/A"
+                    )}
+
+                </p>
+
+
+                <p style="
+                    margin:4px 0 12px;
+                    color:#666;
+                    font-size:12px;
+                ">
+
+                    <strong>Booking #:</strong>
+                    ${escapeHTML(
+                        booking.bookingNumber || "N/A"
+                    )}
+
+                </p>
+
+
+                <button
+                    type="button"
+                    onclick="markCancellationNotificationRead('${booking.id}')"
+                    style="
+                        background:#bd8192;
+                        color:white;
+                        border:none;
+                        border-radius:20px;
+                        padding:8px 16px;
+                        cursor:pointer;
+                        font-size:11px;
+                        font-weight:600;
+                    "
+                >
+                    Mark as Read
+                </button>
+
+            </div>
+
+        `;
+
+    });
+
+
+    container.innerHTML = html;
+
+}
+
+
+/* ------------------------------------------
+   MARK NOTIFICATION AS READ
+------------------------------------------ */
+
+function markCancellationNotificationRead(id) {
+
+    const bookings =
+        JSON.parse(
+            localStorage.getItem(
+                "binibiniBookings"
+            ) || "[]"
+        );
+
+
+    const booking =
+        bookings.find(function (booking) {
+
+            return String(booking.id) ===
+                String(id);
+
+        });
+
+
+    if (!booking) {
+        return;
+    }
+
+
+    booking.notificationRead = true;
+
+
+    localStorage.setItem(
+        "binibiniBookings",
+        JSON.stringify(bookings)
+    );
+
+
+    checkCancellationNotifications();
+
+    renderBookings();
+
+}
+
+
+/* ------------------------------------------
+   CHECK WHEN ADMIN PAGE OPENS
+------------------------------------------ */
+
+if (
+    window.location.pathname.includes(
+        "admin.html"
+    )
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            checkCancellationNotifications();
+
+        }
+    );
+
+}
+
+
+/* ------------------------------------------
+   REAL-TIME CANCELLATION DETECTION
+------------------------------------------ */
+
+window.addEventListener(
+    "storage",
+    function (event) {
+
+        if (
+            event.key === "binibiniBookings"
+        ) {
+
+            checkCancellationNotifications();
+
+            renderBookings();
+
+            updateStatistics();
+
+        }
+
+    }
+);

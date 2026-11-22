@@ -13,15 +13,6 @@ const content = document.getElementById("appointment-content");
 
 function cancelAppointment(bookingNumber) {
 
-    const confirmCancel = confirm(
-        "Are you sure you want to cancel your appointment?\n\n" +
-        "This action will mark your appointment as Cancelled."
-    );
-
-    if (!confirmCancel) {
-        return;
-    }
-
     // Get appointments
     const bookings = JSON.parse(
         localStorage.getItem("biniAppointments") || "[]"
@@ -39,19 +30,250 @@ function cancelAppointment(bookingNumber) {
         return;
     }
 
-    // Change status instead of deleting appointment
+    const booking = bookings[index];
+
+
+    // ==========================================
+    // 48-HOUR CANCELLATION RULE
+    // ==========================================
+
+    /*
+        Convert the appointment date + time
+        into a JavaScript Date.
+    */
+
+    const appointmentDateTime =
+        parseAppointmentDateTime(
+            booking.date,
+            booking.time
+        );
+
+    if (!appointmentDateTime) {
+
+        alert(
+            "We could not determine your appointment date and time."
+        );
+
+        return;
+    }
+
+
+    const currentDateTime = new Date();
+
+    const timeDifference =
+        appointmentDateTime.getTime() -
+        currentDateTime.getTime();
+
+    const hoursRemaining =
+        timeDifference / (1000 * 60 * 60);
+
+
+    // Cancellation is NOT allowed
+    // when less than 48 hours remain.
+
+    if (hoursRemaining < 48) {
+
+        alert(
+            "Cancellation is no longer available.\n\n" +
+            "Appointments can only be cancelled at least " +
+            "48 hours before the scheduled appointment time."
+        );
+
+        return;
+    }
+
+
+    // ==========================================
+    // CONFIRM CANCELLATION
+    // ==========================================
+
+    const confirmCancel = confirm(
+        "Are you sure you want to cancel your appointment?\n\n" +
+        "Your appointment will be marked as Cancelled."
+    );
+
+    if (!confirmCancel) {
+        return;
+    }
+
+
+    // ==========================================
+    // UPDATE CUSTOMER APPOINTMENT
+    // ==========================================
+
     bookings[index].status = "Cancelled";
 
-    // Save updated appointments
+    bookings[index].cancelledAt =
+        new Date().toISOString();
+
+    bookings[index].cancelledBy = "Customer";
+
+
     localStorage.setItem(
         "biniAppointments",
         JSON.stringify(bookings)
     );
 
-    alert("Your appointment has been cancelled successfully.");
+
+    // ==========================================
+    // UPDATE ADMIN BOOKING
+    // ==========================================
+
+    const adminBookings = JSON.parse(
+        localStorage.getItem("binibiniBookings") || "[]"
+    );
+
+
+    const adminIndex = adminBookings.findIndex(
+        booking =>
+            booking.bookingNumber === bookingNumber
+    );
+
+
+    if (adminIndex !== -1) {
+
+        adminBookings[adminIndex].status =
+            "Cancelled";
+
+        adminBookings[adminIndex].cancelledAt =
+            new Date().toISOString();
+
+        adminBookings[adminIndex].cancelledBy =
+            "Customer";
+
+        adminBookings[adminIndex].notification =
+            "Customer cancelled this appointment.";
+
+        adminBookings[adminIndex].notificationRead =
+            false;
+    }
+
+
+    localStorage.setItem(
+        "binibiniBookings",
+        JSON.stringify(adminBookings)
+    );
+
+
+    alert(
+        "Your appointment has been cancelled successfully.\n\n" +
+        "BINIBINI has been notified of the cancellation."
+    );
+
 
     // Reload appointment page
     location.reload();
+}
+
+
+// ==========================================
+// CONVERT APPOINTMENT DATE + TIME
+// ==========================================
+
+function parseAppointmentDateTime(dateString, timeString) {
+
+    if (!dateString || !timeString) {
+        return null;
+    }
+
+
+    /*
+        Handles dates such as:
+        2026-11-25
+
+        and times such as:
+        2:00 PM
+        02:00 PM
+        14:00
+    */
+
+    let datePart = dateString.trim();
+    let timePart = timeString.trim();
+
+
+    // If date is already YYYY-MM-DD
+    // use it directly.
+
+    let date = new Date(`${datePart} ${timePart}`);
+
+
+    // Try YYYY-MM-DD explicitly if needed
+    if (isNaN(date.getTime())) {
+
+        const parts = datePart.split("-");
+
+        if (parts.length === 3) {
+
+            const year = Number(parts[0]);
+            const month = Number(parts[1]) - 1;
+            const day = Number(parts[2]);
+
+            date = new Date(
+                year,
+                month,
+                day
+            );
+
+            const convertedTime =
+                convertTimeTo24Hour(timePart);
+
+            if (convertedTime) {
+
+                date.setHours(
+                    convertedTime.hours,
+                    convertedTime.minutes,
+                    0,
+                    0
+                );
+            }
+        }
+    }
+
+
+    return isNaN(date.getTime())
+        ? null
+        : date;
+}
+
+
+// ==========================================
+// CONVERT TIME TO 24-HOUR FORMAT
+// ==========================================
+
+function convertTimeTo24Hour(timeString) {
+
+    const match = timeString.match(
+        /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i
+    );
+
+    if (!match) {
+        return null;
+    }
+
+
+    let hours =
+        Number(match[1]);
+
+    const minutes =
+        Number(match[2]);
+
+    const period =
+        match[3].toUpperCase();
+
+
+    if (period === "PM" && hours !== 12) {
+        hours += 12;
+    }
+
+    if (period === "AM" && hours === 12) {
+        hours = 0;
+    }
+
+
+    return {
+        hours: hours,
+        minutes: minutes
+    };
 }
 
 
@@ -87,6 +309,7 @@ if (!user) {
         localStorage.getItem("biniAppointments") || "[]"
     );
 
+
     // ===============================
     // FIND THIS CUSTOMER'S BOOKINGS
     // ===============================
@@ -94,6 +317,7 @@ if (!user) {
     const customerBookings = bookings.filter(
         booking => booking.email === user.email
     );
+
 
     // ===============================
     // GET MOST RECENT BOOKING
@@ -127,9 +351,13 @@ if (!user) {
 
     } else {
 
-        const status = booking.status || "Pending";
+        const status =
+            booking.status || "Pending";
 
-        let statusClass = "status-pending";
+
+        let statusClass =
+            "status-pending";
+
 
         let message =
             "Your appointment is waiting for confirmation from BINIBINI.";
@@ -141,12 +369,13 @@ if (!user) {
 
         if (status === "Confirmed") {
 
-            statusClass = "status-confirmed";
+            statusClass =
+                "status-confirmed";
 
             message =
                 "Your appointment has been confirmed by BINIBINI. We look forward to seeing you!";
-
         }
+
 
         // ===============================
         // CANCELLED
@@ -154,11 +383,11 @@ if (!user) {
 
         else if (status === "Cancelled") {
 
-            statusClass = "status-cancelled";
+            statusClass =
+                "status-cancelled";
 
             message =
                 "Your appointment has been cancelled. You may book a new appointment below.";
-
         }
 
 
@@ -168,8 +397,10 @@ if (!user) {
 
         let actionButtons = "";
 
+
         // Only show buttons if appointment
         // has NOT been cancelled
+
         if (status !== "Cancelled") {
 
             actionButtons = `
@@ -198,8 +429,10 @@ if (!user) {
             `;
         }
 
+
         // If appointment is cancelled,
         // only show a booking button
+
         else {
 
             actionButtons = `

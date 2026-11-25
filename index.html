@@ -32,12 +32,24 @@
         </button>
 
         <div class="member-menu">
-            <button class="member-button" onclick="toggleMember()">Member ▾</button>
-            <div class="dropdown" id="member-dropdown">
-                <button id="login-option" onclick="openLogin()">Log In</button>
-                <button id="logout-option" onclick="logout()">Log Out</button>
-            </div>
-        </div>
+    <button class="member-button" onclick="toggleMember()">Member ▾</button>
+
+    <div class="dropdown" id="member-dropdown">
+
+        <button id="login-option" onclick="openLogin()">
+            Log In
+        </button>
+
+        <button id="history-option" onclick="openMemberHistory()" style="display:none;">
+            📋 My History
+        </button>
+
+        <button id="logout-option" onclick="logout()">
+            Log Out
+        </button>
+
+    </div>
+</div>
     </div>
 
     <button class="menu-toggle" onclick="toggleMenu()">☰</button>

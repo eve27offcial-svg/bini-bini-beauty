@@ -155,18 +155,41 @@ if (!accounts.some(a => a.email === "client@binibini.com")) {
 let currentUser = JSON.parse(sessionStorage.getItem("biniUser") || "null");
 
 function updateMember() {
+
     const loggedIn = !!currentUser;
+
     document.getElementById("login-option").textContent =
         loggedIn ? "My Account: " + currentUser.name : "Log In";
 
     document.getElementById("login-option").onclick =
-        loggedIn ? () => alert("Logged in as " + currentUser.email) : openLogin;
+        loggedIn
+            ? () => alert("Logged in as " + currentUser.email)
+            : openLogin;
 
     document.getElementById("logout-option").style.display =
         loggedIn ? "block" : "none";
+
+    const historyOption =
+        document.getElementById("history-option");
+
+    if (historyOption) {
+        historyOption.style.display =
+            loggedIn ? "block" : "none";
+    }
 }
 
 updateMember();
+
+function openMemberHistory() {
+
+    if (!currentUser) {
+        alert("Please log in first.");
+        openLogin();
+        return;
+    }
+
+    window.location.href = "history.html";
+}
 
 document.getElementById("login-form").addEventListener("submit", e => {
     e.preventDefault();
@@ -416,6 +439,40 @@ document.getElementById("checkout-form").addEventListener("submit", e => {
     "\nCustomer: " + currentUser.name +
     "\nPayment: " + method.toUpperCase() +
     "\nReference: " + (ref || "Cash on pickup")
+);
+// SAVE PURCHASE HISTORY
+let purchases =
+    JSON.parse(localStorage.getItem("biniPurchases") || "[]");
+
+const purchaseItems = Object.keys(cart).map(id => ({
+    productId: id,
+    productName: products[id].name,
+    price: products[id].price,
+    quantity: cart[id],
+    subtotal: products[id].price * cart[id]
+}));
+
+const purchaseTotal = purchaseItems.reduce(
+    (sum, item) => sum + item.subtotal,
+    0
+);
+
+purchases.push({
+    orderNumber: orderNumber,
+    customerName: currentUser.name,
+    email: currentUser.email,
+    items: purchaseItems,
+    total: purchaseTotal,
+    orderType: deliveryType.value,
+    paymentMethod: method,
+    paymentReference: ref || "Cash on pickup",
+    date: new Date().toISOString(),
+    status: "Completed"
+});
+
+localStorage.setItem(
+    "biniPurchases",
+    JSON.stringify(purchases)
 );
 
     cart = {};
